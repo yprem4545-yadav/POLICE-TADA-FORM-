@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Police TADA Form</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #eef2f6; margin: 0; padding: 20px; }
+    .form-box { max-width: 680px; background: #ffffff; margin: 0 auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); position: relative; }
+    .header { text-align: center; border-bottom: 2px solid #1a365d; padding-bottom: 15px; margin-bottom: 20px; }
+    .header h2 { margin: 0; color: #1a365d; font-size: 22px; }
+    .header p { margin: 5px 0 0; color: #555; font-size: 14px; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; color: #2d3748; font-size: 14px; }
+    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; font-size: 14px; outline: none; }
+    input:focus, select:focus, textarea:focus { border-color: #1a365d; }
+    .row { display: flex; gap: 15px; }
+    .row .form-group { flex: 1; }
+    
+    /* Footer aur Creator styling */
+    .pdf-footer { margin-top: 30px; padding-top: 15px; border-top: 1px dashed #cbd5e0; display: flex; justify-content: space-between; align-items: flex-end; }
+    .creator-tag { font-size: 13px; color: #718096; font-style: italic; }
+    .creator-tag strong { color: #1a365d; font-style: normal; }
+    .sign-space { text-align: right; font-size: 13px; color: #2d3748; }
+
+    .buttons { display: flex; gap: 12px; margin-top: 25px; }
+    button { flex: 1; padding: 12px; font-size: 15px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; }
+    .btn-submit { background-color: #1a365d; color: #ffffff; }
+    .btn-clear { background-color: #e2e8f0; color: #4a5568; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .form-box { box-shadow: none; border: 1px solid #000; padding: 25px; width: 100%; max-width: 100%; }
+      .buttons { display: none; }
+      .pdf-footer { border-top: 1px solid #000; margin-top: 50px; }
+      .creator-tag { color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-box">
+  <div class="header">
+    <h2>POLICE TA/DA CLAIM FORM</h2>
+    <p>यात्रा एवं दैनिक भत्ता बिल प्रपत्र</p>
+  </div>
+
+  <form id="tadaForm">
+    <div class="row">
+      <div class="form-group">
+        <label>कर्मचारी का नाम (Officer Name):</label>
+        <input type="text" placeholder="पूरा नाम दर्ज करें" required>
+      </div>
+      <div class="form-group">
+        <label>PNO नंबर:</label>
+        <input type="text" placeholder="उदा. 123456789" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>पद (Rank/Designation):</label>
+        <select>
+          <option>कांस्टेबल (Constable)</option>
+          <option>मुख्य आरक्षी (Head Constable)</option>
+          <option>उप-निरीक्षक (Sub-Inspector)</option>
+          <option>निरीक्षक (Inspector)</option>
+          <option>अन्य</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>तैनाती (Thana / Police Line / Unit):</label>
+        <input type="text" placeholder="थाना या यूनिट का नाम" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>प्रस्थान की तिथि (Journey Date):</label>
+        <input type="date" required>
+      </div>
+      <div class="form-group">
+        <label>वापसी की तिथि (Return Date):</label>
+        <input type="date" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>यात्रा का विवरण (कहाँ से कहाँ तक):</label>
+      <input type="text" placeholder="उदा. आगरा से लखनऊ" required>
+    </div>
+
+    <div class="form-group">
+      <label>ड्यूटी का उद्देश्य (Reason / Purpose):</label>
+      <textarea rows="2" placeholder="विवेचना, सम्मन तामील, गवाही या अन्य शासकीय कार्य..."></textarea>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>यात्रा व्यय / किराया (Ticket/Fare ₹):</label>
+        <input type="number" placeholder="₹">
+      </div>
+      <div class="form-group">
+        <label>DA दावा राशि (DA Amount ₹):</label>
+        <input type="number" placeholder="₹">
+      </div>
+    </div>
+
+    <!-- Creator name & Signature line (PDF aur Print dono me aayega) -->
+    <div class="pdf-footer">
+      <div class="creator-tag">
+        Form Created by: <strong>Prem Yadav</strong>
+      </div>
+      <div class="sign-space">
+        _________<br>
+        हस्ताक्षर कर्मचारी (Sign)
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button type="button" class="btn-submit" onclick="window.print()">Print / Save as PDF</button>
+      <button type="reset" class="btn-clear">Clear Form</button>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
