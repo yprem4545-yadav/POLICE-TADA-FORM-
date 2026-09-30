@@ -3,126 +3,438 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Police TADA Form</title>
+  <title>नक्शा T.A. एवं D.A. सम्बन्धी पुलिस अधिकारी/कर्मचारी</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #eef2f6; margin: 0; padding: 20px; }
-    .form-box { max-width: 680px; background: #ffffff; margin: 0 auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); position: relative; }
-    .header { text-align: center; border-bottom: 2px solid #1a365d; padding-bottom: 15px; margin-bottom: 20px; }
-    .header h2 { margin: 0; color: #1a365d; font-size: 22px; }
-    .header p { margin: 5px 0 0; color: #555; font-size: 14px; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; font-weight: 600; margin-bottom: 6px; color: #2d3748; font-size: 14px; }
-    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; font-size: 14px; outline: none; }
-    input:focus, select:focus, textarea:focus { border-color: #1a365d; }
-    .row { display: flex; gap: 15px; }
-    .row .form-group { flex: 1; }
-    
-    /* Footer aur Creator styling */
-    .pdf-footer { margin-top: 30px; padding-top: 15px; border-top: 1px dashed #cbd5e0; display: flex; justify-content: space-between; align-items: flex-end; }
-    .creator-tag { font-size: 13px; color: #718096; font-style: italic; }
-    .creator-tag strong { color: #1a365d; font-style: normal; }
-    .sign-space { text-align: right; font-size: 13px; color: #2d3748; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 12px;
+      color: #000;
+    }
 
-    .buttons { display: flex; gap: 12px; margin-top: 25px; }
-    button { flex: 1; padding: 12px; font-size: 15px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; }
-    .btn-submit { background-color: #1a365d; color: #ffffff; }
-    .btn-clear { background-color: #e2e8f0; color: #4a5568; }
+    /* Screen par Input lene ke liye box */
+    .controls-panel {
+      max-width: 1150px;
+      margin: 0 auto 20px auto;
+      background: #ffffff;
+      padding: 18px 24px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    .controls-panel h3 {
+      margin-top: 0;
+      color: #1e3a8a;
+      border-bottom: 2px solid #1e3a8a;
+      padding-bottom: 8px;
+    }
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .input-grid .box {
+      display: flex;
+      flex-direction: column;
+    }
+    .input-grid label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: #334155;
+    }
+    .input-grid input {
+      padding: 6px 8px;
+      border: 1px solid #94a3b8;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .btn {
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-save { background: #0284c7; color: #fff; }
+    .btn-print { background: #1e3a8a; color: #fff; }
+    .btn-clear { background: #e2e8f0; color: #333; }
+
+    /* Official Printable Sheet Layout */
+    .voucher-sheet {
+      width: 100%;
+      max-width: 1150px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 20px 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border: 1px solid #cbd5e1;
+    }
+
+    .main-heading {
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    table.report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      line-height: 1.25;
+    }
+
+    table.report-table th, 
+    table.report-table td {
+      border: 1px solid #000;
+      padding: 4px 4px;
+      text-align: center;
+      vertical-align: middle;
+      color: #000;
+    }
+
+    table.report-table th {
+      font-weight: bold;
+      background: #fafafa;
+    }
+
+    .align-left { text-align: left !important; }
+    .align-right { text-align: right !important; }
+
+    .calc-cell {
+      text-align: left !important;
+      padding-left: 8px !important;
+      font-size: 11px;
+    }
+
+    .declaration-content {
+      text-align: left !important;
+      font-size: 10px;
+      line-height: 1.35;
+      vertical-align: top !important;
+      padding: 5px !important;
+    }
+
+    .signature-area {
+      text-align: right !important;
+      font-size: 10.5px;
+      line-height: 1.35;
+      padding: 12px 8px 4px 8px !important;
+      vertical-align: bottom !important;
+    }
+
+    .creator-line {
+      margin-top: 14px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #1e3a8a;
+      text-align: right;
+    }
 
     @media print {
-      body { background: white; padding: 0; }
-      .form-box { box-shadow: none; border: 1px solid #000; padding: 25px; width: 100%; max-width: 100%; }
-      .buttons { display: none; }
-      .pdf-footer { border-top: 1px solid #000; margin-top: 50px; }
-      .creator-tag { color: #000; }
+      body { background: #fff; padding: 0; }
+      .controls-panel { display: none !important; }
+      .voucher-sheet {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+      }
+      table.report-table th { background: transparent !important; }
+      @page { size: A4 landscape; margin: 6mm; }
     }
   </style>
 </head>
 <body>
 
-<div class="form-box">
-  <div class="header">
-    <h2>POLICE TA/DA CLAIM FORM</h2>
-    <p>यात्रा एवं दैनिक भत्ता बिल प्रपत्र</p>
+<!-- Form Edit Panel -->
+<div class="controls-panel">
+  <h3>नक्शा T.A./D.A. प्रविष्टि (Details Input)</h3>
+  <div class="input-grid">
+    <div class="box"><label>पद व नंबर:</label><input type="text" id="i_rank" placeholder="उदा. आरक्षी / मुख्य आरक्षी"></div>
+    <div class="box"><label>नाम:</label><input type="text" id="i_name" placeholder="कर्मचारी का पूरा नाम"></div>
+    <div class="box"><label>नियुक्ति:</label><input type="text" id="i_niyukti" placeholder="थाना / यूनिट / शाखा"></div>
+    <div class="box"><label>जिला:</label><input type="text" id="i_dist" placeholder="जिला / कमिश्नरेट"></div>
+    <div class="box"><label>वर्ष:</label><input type="text" id="i_year" placeholder="उदा. 2026-27"></div>
+    <div class="box"><label>P.N.O. नं०:</label><input type="text" id="i_pno" placeholder="9 अंकों का PNO"></div>
+    <div class="box"><label>मूल वेतन (Basic ₹):</label><input type="text" id="i_pay" placeholder="मूल वेतन"></div>
+    <div class="box"><label>ग्रेड पे:</label><input type="text" id="i_gpay" placeholder="ग्रेड पे"></div>
+    <div class="box"><label>लेवल:</label><input type="text" id="i_level" placeholder="पे लेवल"></div>
+    <div class="box"><label>बैंक नाम:</label><input type="text" id="i_bank" placeholder="बैंक का नाम"></div>
+    <div class="box"><label>खाता संख्या (A/C No):</label><input type="text" id="i_ac" placeholder="खाता संख्या"></div>
+    <div class="box"><label>IFSC कोड:</label><input type="text" id="i_ifsc" placeholder="IFSC कोड"></div>
+    <div class="box"><label>मोबाइल नं०:</label><input type="text" id="i_mobile" placeholder="मोबाइल नंबर"></div>
+    <div class="box"><label>प्रस्थान तिथि:</label><input type="text" id="i_dep_d" placeholder="उदा. DD.MM.YY"></div>
+    <div class="box"><label>प्रस्थान समय:</label><input type="text" id="i_dep_t" placeholder="उदा. 09:30"></div>
+    <div class="box"><label>आगमन तिथि:</label><input type="text" id="i_arr_d" placeholder="उदा. DD.MM.YY"></div>
+    <div class="box"><label>आगमन समय:</label><input type="text" id="i_arr_t" placeholder="उदा. 21:00"></div>
+    <div class="box"><label>कहाँ से:</label><input type="text" id="i_from" placeholder="प्रस्थान स्थान"></div>
+    <div class="box"><label>कहाँ तक:</label><input type="text" id="i_to" placeholder="गंतव्य स्थान"></div>
+    <div class="box"><label>कारण / ड्यूटी:</label><input type="text" id="i_reason" placeholder="शासकीय कार्य विवरण"></div>
+    <div class="box"><label>यात्रा प्रकार:</label><input type="text" id="i_mode" placeholder="सड़क / रेल"></div>
+    <div class="box"><label>सवारी किस्म:</label><input type="text" id="i_vehicle" placeholder="सरकारी / बस / ट्रेन"></div>
+    <div class="box"><label>दूरी (कि.मी.):</label><input type="text" id="i_dist_km" placeholder="कि.मी."></div>
+    <div class="box"><label>DA दर (₹):</label><input type="text" id="i_da_rate" placeholder="प्रतिदिन दर"></div>
+    <div class="box"><label>दिनों की संख्या:</label><input type="text" id="i_da_days" placeholder="उदा. 1"></div>
+    <div class="box"><label>हस्ताक्षर दिनांक:</label><input type="text" id="i_sig_date" placeholder="DD-MM-YYYY"></div>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-save" onclick="syncForm()">फॉर्म अपडेट करें (Preview)</button>
+    <button type="button" class="btn btn-print" onclick="window.print()">Print / Save as PDF</button>
+    <button type="button" class="btn btn-clear" onclick="clearForm()">खाली करें (Clear)</button>
+  </div>
+</div>
+
+<!-- Output Paper matching Screenshot -->
+<div class="voucher-sheet">
+  <div class="main-heading">
+    नक्शा T.A. एवं D.A. सम्बन्धी पुलिस अधिकारी/कर्मचारी <span id="v_rank_top">___</span> <span id="v_name_top">_____</span> नियुक्ति <span id="v_niyukti_top">________</span> जिला <span id="v_dist_top">_____</span> वर्ष- <span id="v_year_top">_</span>
   </div>
 
-  <form id="tadaForm">
-    <div class="row">
-      <div class="form-group">
-        <label>कर्मचारी का नाम (Officer Name):</label>
-        <input type="text" placeholder="पूरा नाम दर्ज करें" required>
-      </div>
-      <div class="form-group">
-        <label>PNO नंबर:</label>
-        <input type="text" placeholder="उदा. 123456789" required>
-      </div>
-    </div>
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th rowspan="2" style="width: 9%;">पद, नाम,<br>P.N.O. नं०</th>
+        <th rowspan="2" style="width: 5%;">मूल<br>वेतन</th>
+        <th colspan="2" style="width: 8%;">प्रस्थान</th>
+        <th colspan="2" style="width: 8%;">आगमन</th>
+        <th rowspan="2" style="width: 9%;">कहाँ से</th>
+        <th rowspan="2" style="width: 9%;">कहाँ तक</th>
+        <th rowspan="2" style="width: 6%;">यात्रा<br>का<br>कारण</th>
+        <th rowspan="2" style="width: 4%;">यात्रा<br>का<br>प्रकार</th>
+        <th rowspan="2" style="width: 6%;">सवारी<br>का किस्म</th>
+        <th rowspan="2" style="width: 4%;">दूरी<br>कि.<br>मी.</th>
+        <th colspan="2" style="width: 7%;">मांगी गई<br>धनराशि</th>
+        <th rowspan="2" style="width: 3%; font-size: 9px;">जी.डी. नं०</th>
+        <th rowspan="2" style="width: 23%;">अन्य विवरण</th>
+      </tr>
+      <tr>
+        <th style="font-size: 10px;">तिथि</th>
+        <th style="font-size: 10px;">समय</th>
+        <th style="font-size: 10px;">तिथि</th>
+        <th style="font-size: 10px;">समय</th>
+        <th style="font-size: 10px;">रूपये</th>
+        <th style="font-size: 10px;">पैसे</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Row 1 -->
+      <tr>
+        <td><span id="v_rank_r1"></span></td>
+        <td><span id="v_pay"></span></td>
+        <td><span id="v_dep_d"></span></td>
+        <td><span id="v_dep_t"></span></td>
+        <td><span id="v_arr_d"></span></td>
+        <td><span id="v_arr_t"></span></td>
+        <td><span id="v_from"></span></td>
+        <td><span id="v_to"></span></td>
+        <td><span id="v_reason"></span></td>
+        <td><span id="v_mode"></span></td>
+        <td><span id="v_vehicle"></span></td>
+        <td><span id="v_km"></span></td>
+        <td>-</td>
+        <td>-</td>
+        <td rowspan="2" style="font-size: 10px;"><span id="v_gd"></span></td>
+        <td class="declaration-content" rowspan="3">
+          महोदय,<br>
+          (1) यह इस यात्रा का प्रथम नक्शा है।<br>
+          (2) यात्रा सरकारी कार्य हेतु की गयी है।<br>
+          (3) जी० डी० न० और समय अंकित है।<br>
+          (4) यात्रा हेतु कोई अग्रिम धनराशि नहीं ली गयी है।<br>
+          अतः महोदय से अनुरोध है कि उक्त धनराशि शीघ्र भुगतान कराने की कृपा करें।
+        </td>
+      </tr>
 
-    <div class="row">
-      <div class="form-group">
-        <label>पद (Rank/Designation):</label>
-        <select>
-          <option>कांस्टेबल (Constable)</option>
-          <option>मुख्य आरक्षी (Head Constable)</option>
-          <option>उप-निरीक्षक (Sub-Inspector)</option>
-          <option>निरीक्षक (Inspector)</option>
-          <option>अन्य</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>तैनाती (Thana / Police Line / Unit):</label>
-        <input type="text" placeholder="थाना या यूनिट का नाम" required>
-      </div>
-    </div>
+      <!-- Row 2 -->
+      <tr>
+        <td><span id="v_name_r2"></span></td>
+        <td style="font-size: 9px;">ग्रेड पे-</td>
+        <td colspan="10" class="calc-cell">
+          नोट: DA दि० <span id="v_calc_d">_/_/__</span> से <span id="v_days"></span> का <span id="v_rate_show">_</span>/- प्रतिदिन की दर से <span id="v_calc_to">__</span> का <span id="v_days_mult"></span> × <span id="v_rate_mult">__</span> =
+        </td>
+        <td><span id="v_da_rs">-</span></td>
+        <td>00</td>
+      </tr>
 
-    <div class="row">
-      <div class="form-group">
-        <label>प्रस्थान की तिथि (Journey Date):</label>
-        <input type="date" required>
-      </div>
-      <div class="form-group">
-        <label>वापसी की तिथि (Return Date):</label>
-        <input type="date" required>
-      </div>
-    </div>
+      <!-- Row 3 -->
+      <tr>
+        <td>P.N.O.-<br><span id="v_pno"></span></td>
+        <td><span id="v_gpay"></span></td>
+        <td colspan="10" class="calc-cell">
+          माइलेज: कि.मी. का 0पै0/किमी0 की दर से 0 × =
+        </td>
+        <td>0</td>
+        <td>00</td>
+        <td></td>
+      </tr>
 
-    <div class="form-group">
-      <label>यात्रा का विवरण (कहाँ से कहाँ तक):</label>
-      <input type="text" placeholder="उदा. आगरा से लखनऊ" required>
-    </div>
+      <!-- Row 4 -->
+      <tr>
+        <td><span id="v_bank"></span></td>
+        <td style="font-size: 9px;">लेवल-</td>
+        <td colspan="10" class="align-right" style="font-weight: bold; padding-right: 10px;">
+          संपूर्ण योग (<span id="v_amt_words">_____</span>)
+        </td>
+        <td style="font-weight: bold;"><span id="v_total_rs">-</span></td>
+        <td style="font-weight: bold;">00</td>
+        <td></td>
+        <td class="signature-area" rowspan="4">
+          <strong>हस्ताक्षर</strong><br><br>
+          (<span id="v_sign_name">........................</span>)<br>
+          (<span id="v_sign_rank">........................</span>)<br>
+          P.N.O.NO. <span id="v_sign_pno">................</span><br>
+          MO.NO. <span id="v_sign_mob">................</span><br>
+          <span id="v_sign_unit">................................</span><br>
+          दिनांक - <span id="v_sign_date">_-_-____</span>
+        </td>
+      </tr>
 
-    <div class="form-group">
-      <label>ड्यूटी का उद्देश्य (Reason / Purpose):</label>
-      <textarea rows="2" placeholder="विवेचना, सम्मन तामील, गवाही या अन्य शासकीय कार्य..."></textarea>
-    </div>
+      <!-- Row 5 -->
+      <tr>
+        <td class="align-left" style="font-size: 9.5px;">A/C No.<br><span id="v_ac"></span></td>
+        <td><span id="v_level"></span></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+      </tr>
 
-    <div class="row">
-      <div class="form-group">
-        <label>यात्रा व्यय / किराया (Ticket/Fare ₹):</label>
-        <input type="number" placeholder="₹">
-      </div>
-      <div class="form-group">
-        <label>DA दावा राशि (DA Amount ₹):</label>
-        <input type="number" placeholder="₹">
-      </div>
-    </div>
+      <!-- Row 6 -->
+      <tr>
+        <td class="align-left" style="font-size: 9px;">IFSC code-<br><span id="v_ifsc"></span></td>
+        <td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+      </tr>
 
-    <!-- Creator name & Signature line (PDF aur Print dono me aayega) -->
-    <div class="pdf-footer">
-      <div class="creator-tag">
-        Form Created by: <strong>Prem Yadav</strong>
-      </div>
-      <div class="sign-space">
-        _________<br>
-        हस्ताक्षर कर्मचारी (Sign)
-      </div>
-    </div>
+      <!-- Row 7 -->
+      <tr>
+        <td class="align-left" style="font-size: 10px; font-weight: bold;">संलग्नक</td>
+        <td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+      </tr>
 
-    <div class="buttons">
-      <button type="button" class="btn-submit" onclick="window.print()">Print / Save as PDF</button>
-      <button type="reset" class="btn-clear">Clear Form</button>
-    </div>
-  </form>
+      <!-- Rows 8, 9, 10 blank items -->
+      <tr>
+        <td class="align-left" style="font-size: 9.5px;">1.</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td class="align-left" style="font-size: 9.5px;">2.</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td class="align-left" style="font-size: 9.5px;">3.</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Creator Credit Line -->
+  <div class="creator-line">
+    Creators-prem yadav
+  </div>
 </div>
+
+<script>
+  function syncForm() {
+    var rank = document.getElementById('i_rank').value || '';
+    var name = document.getElementById('i_name').value || '';
+    var niyukti = document.getElementById('i_niyukti').value || '';
+    var dist = document.getElementById('i_dist').value || '';
+    var year = document.getElementById('i_year').value || '';
+    var pno = document.getElementById('i_pno').value || '';
+    var pay = document.getElementById('i_pay').value || '';
+    var gpay = document.getElementById('i_gpay').value || '';
+    var level = document.getElementById('i_level').value || '';
+    var bank = document.getElementById('i_bank').value || '';
+    var ac = document.getElementById('i_ac').value || '';
+    var ifsc = document.getElementById('i_ifsc').value || '';
+    var mobile = document.getElementById('i_mobile').value || '';
+    var dep_d = document.getElementById('i_dep_d').value || '';
+    var dep_t = document.getElementById('i_dep_t').value || '';
+    var arr_d = document.getElementById('i_arr_d').value || '';
+    var arr_t = document.getElementById('i_arr_t').value || '';
+    var from = document.getElementById('i_from').value || '';
+    var to = document.getElementById('i_to').value || '';
+    var reason = document.getElementById('i_reason').value || '';
+    var mode = document.getElementById('i_mode').value || 'सड़क';
+    var vehicle = document.getElementById('i_vehicle').value || '';
+    var km = document.getElementById('i_dist_km').value || '';
+    var da_rate = parseFloat(document.getElementById('i_da_rate').value) || 0;
+    var da_days = parseFloat(document.getElementById('i_da_days').value) || 1;
+    var sig_date = document.getElementById('i_sig_date').value || '';
+
+    var total_amt = da_rate * da_days;
+
+    document.getElementById('v_rank_top').innerText = rank || '____';
+    document.getElementById('v_name_top').innerText = name || '______';
+    document.getElementById('v_niyukti_top').innerText = niyukti || '________';
+    document.getElementById('v_dist_top').innerText = dist || '______';
+    document.getElementById('v_year_top').innerText = year || '__';
+
+    document.getElementById('v_rank_r1').innerText = rank;
+    document.getElementById('v_name_r2').innerText = name;
+    document.getElementById('v_pno').innerText = pno;
+    document.getElementById('v_pay').innerText = pay;
+    document.getElementById('v_gpay').innerText = gpay;
+    document.getElementById('v_level').innerText = level;
+    document.getElementById('v_bank').innerText = bank;
+    document.getElementById('v_ac').innerText = ac;
+    document.getElementById('v_ifsc').innerText = ifsc;
+
+    document.getElementById('v_dep_d').innerText = dep_d;
+    document.getElementById('v_dep_t').innerText = dep_t;
+    document.getElementById('v_arr_d').innerText = arr_d;
+    document.getElementById('v_arr_t').innerText = arr_t;
+    document.getElementById('v_from').innerText = from;
+    document.getElementById('v_to').innerText = to;
+    document.getElementById('v_reason').innerText = reason;
+    document.getElementById('v_mode').innerText = mode;
+    document.getElementById('v_vehicle').innerText = vehicle;
+    document.getElementById('v_km').innerText = km;
+
+    document.getElementById('v_calc_d').innerText = dep_d || '_/_/__';
+    document.getElementById('v_calc_to').innerText = to || '___';
+    document.getElementById('v_days').innerText = da_days;
+    document.getElementById('v_days_mult').innerText = da_days;
+    document.getElementById('v_rate_show').innerText = da_rate;
+    document.getElementById('v_rate_mult').innerText = da_rate;
+
+    if (total_amt > 0) {
+      document.getElementById('v_da_rs').innerText = total_amt;
+      document.getElementById('v_total_rs').innerText = total_amt;
+      document.getElementById('v_amt_words').innerText = total_amt + ' रुपये मात्र';
+    } else {
+      document.getElementById('v_da_rs').innerText = '0';
+      document.getElementById('v_total_rs').innerText = '0';
+      document.getElementById('v_amt_words').innerText = 'शून्य रुपये';
+    }
+
+    document.getElementById('v_sign_name').innerText = name || '........................';
+    document.getElementById('v_sign_rank').innerText = rank || '........................';
+    document.getElementById('v_sign_pno').innerText = pno || '................';
+    document.getElementById('v_sign_mob').innerText = mobile || '................';
+    document.getElementById('v_sign_unit').innerText = niyukti || '................................';
+    document.getElementById('v_sign_date').innerText = sig_date || '_-_-____';
+  }
+
+  function clearForm() {
+    var inputs = document.querySelectorAll('.controls-panel input');
+    inputs.forEach(function(input) { input.value = ''; });
+    syncForm();
+  }
+</script>
 
 </body>
 </html>
